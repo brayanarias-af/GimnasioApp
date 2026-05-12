@@ -12,8 +12,7 @@ Tecnología de Desarrollo de Sistemas Informáticos
 
 ---
 
-![Pantalla Inicial]( <img width="1123" height="722" alt="image" src="https://github.com/user-attachments/assets/90efc89b-bd18-4bf6-b4a5-c4c9898df8ec" />
- )
+![Pantalla Inicial]( )
 
 
 ---
