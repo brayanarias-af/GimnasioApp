@@ -39,6 +39,10 @@ Desarrollar un sistema de gestión de gimnasio basado en POO que permita adminis
 - Generar reportes simples sobre la información almacenada.
 
 ---
+## diagrama de la base de datos 
+
+![diagrama base de datos](src/Gimnasio/BaseDatos/GymAPP DIAGRAMA.png)
+
 
 ## Estructura del Proyecto
 
