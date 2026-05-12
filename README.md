@@ -12,7 +12,7 @@ Tecnología de Desarrollo de Sistemas Informáticos
 
 ---
 
-![Pantalla Inicial]( )
+![Pantalla Inicial]( ![alt text](capturas/login.png) )
 
 
 ---
