@@ -47,50 +47,33 @@ Desarrollar un sistema de gestión de gimnasio basado en POO que permita adminis
 ## Estructura del Proyecto
 
 ```
-GimnasioApp/
-├── nbproject/
-│   ├── Main.java 
-├── src/
-│   └── gimnasio/
-│       ├── Main.java                          ← Punto de entrada
-│       │
-│       ├── modelo/                            ← Clases de datos (POO)
-│       │   ├── Persona.java
-│       │   ├── Cliente.java
-│       │   ├── Entrenador.java
-│       │   ├── Rutina.java
-│       │   ├── Maquina.java
-│       │   └── ProgresoFisico.java
-│       │
-│       ├── vista/                             ← Interfaz gráfica (SWING)
-│       │   ├── MenuPrincipal.java
-│       │   ├── VistaClientes.java
-│       │   ├── VistaEntrenadores.java
-│       │   ├── VistaRutinas.java
-│       │   ├── VistaMaquinas.java
-│       │   └── VistaProgreso.java
-│       │
-│       ├── controlador/                       ← Intermediario vista ↔ modelo
-│       │   ├── ClienteControlador.java
-│       │   ├── EntrenadorControlador.java
-│       │   ├── RutinaControlador.java
-│       │   └── MaquinaControlador.java
-│       │
-│       └── dao/                               ← Comunicación con la BD
-│           ├── Conexion.java                  (abre/cierra la conexión)
-│           ├── ClienteDAO.java
-│           ├── EntrenadorDAO.java
-│           ├── RutinaDAO.java
-│           └── MaquinaDAO.java
-│
-├── lib/
-│   └── mysql-connector.jar                    ← Driver JDBC
-├── database/
-│   └── gimnasio.sql                           ← Script para crear las tablas
-├── assets/
-│   └── screenshot-menu.png
-├── README.md
-└── GimnasioApp.jar
+ src/Gimnasio/
+  ├── Conexion/
+  │   └── Conexion.java         
+  ├── Controlador/
+  │   ├── Sesion.java            
+  │   ├── ClienteDAO.java        
+  │   ├── MaquinaDAO.java        
+  │   └── RutinaDAO.java        
+  ├── Modelo/
+  │   ├── Cliente.java           
+  │   ├── Entrenador.java        
+  │   ├── Maquina.java           
+  │   ├── Rutina.java           
+  │   └── Usuario.java          
+  ├── Vistas/
+  │   ├── LoginVista.java        
+  │   ├── PanelAdminVista.java   
+  │   ├── PanelUsuarioVista.java 
+  │   ├── DashboardVista.java    
+  │   ├── ClientesVista.java    
+  │   ├── FormularioClienteVista.java ← Form crear/editar
+  │   ├── MaquinasVista.java     
+  │   ├── RutinasVista.java      
+  │   ├── EstilosGym.java        
+  │   └── NavLateral.java        
+  └── Main/
+      └── Main.java              ← Arranca LoginVista
 ```
 
 **Lista de Menú de Opciones** con logo e ítems de navegación:
@@ -163,29 +146,39 @@ GimnasioApp/
 git clone https://github.com/brayanarias-af/GimnasioApp.git
 cd GimnasioApp
 ```
+PASO 1: Agregar el driver de SQLite
+─────────────────────────────────────
+  1. Descarga: sqlite-jdbc-3.51.0.0.jar  (ya lo tienes)
+  2. Cópialo a la carpeta: GimnasioApp/lib/
+     Renómbralo a: sqlite-jdbc.jar
+     (Ruta final: GimnasioApp/lib/sqlite-jdbc.jar)
+     
+PASO 2: Abrir en NetBeans
+────────────────────────────
+  File → Open Project → selecciona la carpeta GimnasioApp
 
-2. **Abrir en NetBeans:**
-   - Ir a `File > Open Project`
-   - Seleccionar la carpeta del proyecto
+PASO 3: Verificar librería en NetBeans
+────────────────────────────────────────
+  - Click derecho en el proyecto → Properties
+  - Libraries → verifica que aparezca sqlite-jdbc.jar
+  - Si no aparece: Add JAR/Folder → selecciona lib/sqlite-jdbc.jar
 
-3. **Compilar y ejecutar:**
-   - Presionar `F6` o clic en `Run Project`
-   - También puede ejecutarse desde la terminal:
-
-```bash
-javac -d bin src/gimnasio/**/*.java
-java -cp bin gimnasio.Main
+PASO 4: Ejecutar
+──────────────────
+  Run → Run Project (F6)
+  La base de datos GymAPP.db se crea AUTOMÁTICAMENTE en la raíz
+  del proyecto con datos de ejemplo.
+  
 ```
-
-4. **Ejecutar el JAR (si está disponible):**
+**Ejecutar el JAR (si está disponible):**
 ```bash
 java -jar GimnasioApp.jar
 ```
 
 ### Credenciales de Prueba
 ```
-Usuario: admin
-Contraseña: gimnasio123
+Admin:    usuario: admin      contraseña: gimnasio123
+Cliente:  usuario: cliente1   contraseña: 12345
 ```
 
 ---
@@ -202,4 +195,4 @@ Contraseña: gimnasio123
 
 ## Licencia
 
-Proyecto académico desarrollado para la asignatura de Tecnología de Desarrollo de Sistemas Informáticos — I Semestre 2026.
+Proyecto académico desarrollado para la Programacion Orientada a Objetos de Tecnología de Desarrollo de Sistemas Informáticos — I Semestre 2026.
