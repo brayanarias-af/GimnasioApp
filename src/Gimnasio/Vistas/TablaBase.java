@@ -28,7 +28,13 @@ public abstract class TablaBase extends JPanel {
         JPanel acc = new JPanel(new FlowLayout(FlowLayout.RIGHT,8,0)); acc.setOpaque(false);
         if (conBuscar) {
             txtBuscar = EstilosGym.crearCampoTexto(); txtBuscar.setPreferredSize(new Dimension(200,36));
-            JButton btnB = EstilosGym.crearBotonSecundario("🔍 Buscar");
+            JButton btnB = EstilosGym.crearBotonSecundario("Buscar");
+            java.net.URL buscarUrl = getClass().getResource("/Gimnasio/Iconos/buscar.png");
+            if (buscarUrl != null) {
+                ImageIcon buscarIco = new ImageIcon(new ImageIcon(buscarUrl).getImage().getScaledInstance(16,16,java.awt.Image.SCALE_SMOOTH));
+                btnB.setIcon(buscarIco);
+                btnB.setIconTextGap(6);
+            }
             btnB.addActionListener(e -> onBuscar(txtBuscar.getText().trim()));
             txtBuscar.addActionListener(e -> onBuscar(txtBuscar.getText().trim()));
             acc.add(txtBuscar); acc.add(btnB);

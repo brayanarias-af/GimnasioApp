@@ -29,7 +29,7 @@ public class GestionPermisosVista extends JPanel {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(EstilosGym.COLOR_FONDO);
         header.setBorder(new EmptyBorder(18,24,12,24));
-        JLabel titulo = new JLabel("🔐  Gestión de Permisos");
+        JLabel titulo = new JLabel("Gestión de Permisos");
         titulo.setFont(EstilosGym.FUENTE_TITULO); titulo.setForeground(EstilosGym.COLOR_TEXTO);
         JLabel sub = new JLabel("Controla el acceso de los entrenadores a los módulos del sistema");
         sub.setFont(EstilosGym.FUENTE_NORMAL); sub.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
@@ -44,7 +44,7 @@ public class GestionPermisosVista extends JPanel {
         // Panel izquierdo
         JPanel pIzq = new JPanel(new BorderLayout()); pIzq.setBackground(EstilosGym.COLOR_PANEL);
         pIzq.setBorder(BorderFactory.createMatteBorder(0,0,0,1,EstilosGym.COLOR_BORDE));
-        JLabel lblU = new JLabel("  🏋️ Entrenadores");
+        JLabel lblU = new JLabel("  Entrenadores");
         lblU.setFont(new Font("Segoe UI",Font.BOLD,12)); lblU.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
         lblU.setBorder(new EmptyBorder(10,10,8,10)); lblU.setBackground(new Color(14,14,20)); lblU.setOpaque(true);
 
@@ -183,7 +183,12 @@ public class GestionPermisosVista extends JPanel {
         };
         row.setOpaque(false);
 
-        JLabel lMod = new JLabel(moduloIcon(modulo)+"  "+modulo);
+        JLabel lMod = new JLabel("  "+modulo);
+        java.net.URL icoUrl = getClass().getResource("/Gimnasio/Iconos/" + moduloIcon(modulo) + ".png");
+        if (icoUrl != null) {
+            ImageIcon icoScaled = new ImageIcon(new ImageIcon(icoUrl).getImage().getScaledInstance(18,18,java.awt.Image.SCALE_SMOOTH));
+            lMod.setIcon(icoScaled); lMod.setIconTextGap(6);
+        }
         lMod.setFont(new Font("Segoe UI",Font.BOLD,13)); lMod.setForeground(EstilosGym.COLOR_TEXTO);
         lMod.setBounds(16,10,280,20); row.add(lMod);
 
@@ -222,11 +227,11 @@ public class GestionPermisosVista extends JPanel {
 
     private String moduloIcon(String m) {
         return switch (m) {
-            case "Mis Rutinas","Clientes Asignados" -> "📋";
-            case "Máquinas"         -> "🏋️";
-            case "Mis Pagos"        -> "💳";
-            case "Mi Progreso","Progreso Clientes" -> "📈";
-            default -> "🔧";
+            case "Mis Rutinas","Clientes Asignados" -> "rutina";
+            case "Máquinas"         -> "maquina";
+            case "Mis Pagos"        -> "pago";
+            case "Mi Progreso","Progreso Clientes" -> "ingresos-de-dinero";
+            default -> "inicio";
         };
     }
     private String moduloDesc(String m) {

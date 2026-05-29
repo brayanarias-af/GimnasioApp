@@ -23,9 +23,9 @@ public class PanelUsuarioVista extends JFrame {
     private static final String[] MODULOS_CLIENTE    = {"Inicio","Mis Rutinas","Máquinas","Mis Pagos","Mi Progreso"};
     private static final String[] MODULOS_ENTRENADOR = {"Inicio","Mis Rutinas","Máquinas","Clientes Asignados","Progreso Clientes"};
     private static final Map<String,String> ICONOS_MAP = Map.of(
-        "Inicio","🏠","Mis Rutinas","📋","Máquinas","🏋️",
-        "Mis Pagos","💳","Mi Progreso","📈",
-        "Clientes Asignados","👥","Progreso Clientes","📊"
+        "Inicio","inicio","Mis Rutinas","rutina","Máquinas","maquina",
+        "Mis Pagos","pago","Mi Progreso","ingresos-de-dinero",
+        "Clientes Asignados","clientes","Progreso Clientes","clientes"
     );
 
     public PanelUsuarioVista() {
@@ -39,13 +39,13 @@ public class PanelUsuarioVista extends JFrame {
 
     private void resolverModulos() {
         seccionesHabilitadas.clear(); iconosHabilitados.clear();
-        seccionesHabilitadas.add("Inicio"); iconosHabilitados.add("🏠");
+        seccionesHabilitadas.add("Inicio"); iconosHabilitados.add("inicio");
 
         // Cliente con membresía vencida o pendiente: solo ve "Mis Pagos"
         if (Sesion.esCliente() && Sesion.getIdCliente() > 0) {
             String est = obtenerEstadoMembresia();
             if ("Vencida".equalsIgnoreCase(est) || "Pendiente".equalsIgnoreCase(est)) {
-                seccionesHabilitadas.add("Mis Pagos"); iconosHabilitados.add("💳");
+                seccionesHabilitadas.add("Mis Pagos"); iconosHabilitados.add("pago");
                 return;
             }
         }
@@ -55,7 +55,7 @@ public class PanelUsuarioVista extends JFrame {
             if ("Inicio".equals(m)) continue;
             if (Sesion.esCliente() || Sesion.tienePermiso(m)) {
                 seccionesHabilitadas.add(m);
-                iconosHabilitados.add(ICONOS_MAP.getOrDefault(m,"📌"));
+                iconosHabilitados.add(ICONOS_MAP.getOrDefault(m,"inicio"));
             }
         }
     }
@@ -172,7 +172,7 @@ public class PanelUsuarioVista extends JFrame {
         desc.setFont(new Font("Segoe UI",Font.PLAIN,14));
         desc.setForeground(EstilosGym.COLOR_TEXTO);
 
-        JButton btnPagos = EstilosGym.crearBotonPrimario("💳  Ir a Mis Pagos");
+        JButton btnPagos = EstilosGym.crearBotonPrimario("Ir a Mis Pagos");
         btnPagos.setAlignmentX(0.5f); btnPagos.setPreferredSize(new Dimension(200,42));
         btnPagos.setMaximumSize(new Dimension(200,42));
         btnPagos.addActionListener(e -> { nav.setActivo("Mis Pagos"); cambiar("Mis Pagos"); });
@@ -188,7 +188,7 @@ public class PanelUsuarioVista extends JFrame {
 
     // ─────────────── RUTINAS ───────────────
     private JPanel vistaRutinas() {
-        JPanel root=panel(); JPanel hdr=header("📋  Mis Rutinas de Entrenamiento"); root.add(hdr,BorderLayout.NORTH);
+        JPanel root=panel(); JPanel hdr=header("Mis Rutinas de Entrenamiento"); root.add(hdr,BorderLayout.NORTH);
 
         JPanel grid=new JPanel(new GridLayout(0,2,16,16));
         grid.setBackground(EstilosGym.COLOR_FONDO); grid.setBorder(new EmptyBorder(4,25,25,25));
@@ -320,7 +320,7 @@ public class PanelUsuarioVista extends JFrame {
 
     // ─────────────── MÁQUINAS ───────────────
     private JPanel vistaMaquinas() {
-        JPanel root=panel(); root.add(header("🏋️  Máquinas del Gimnasio"),BorderLayout.NORTH);
+        JPanel root=panel(); root.add(header("Máquinas del Gimnasio"),BorderLayout.NORTH);
         JPanel grid=new JPanel(new GridLayout(0,3,16,16));
         grid.setBackground(EstilosGym.COLOR_FONDO); grid.setBorder(new EmptyBorder(4,25,25,25));
         try {
@@ -350,7 +350,7 @@ public class PanelUsuarioVista extends JFrame {
         int idCliente = Sesion.getIdCliente();
 
         if (idCliente <= 0) {
-            root.add(header("💳  Mis Pagos"), BorderLayout.NORTH);
+            root.add(header("Mis Pagos"), BorderLayout.NORTH);
             JLabel err = new JLabel("No se pudo identificar tu cuenta. Contacta al administrador.", JLabel.CENTER);
             err.setFont(new Font("Segoe UI",Font.ITALIC,13)); err.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
             root.add(err, BorderLayout.CENTER); return root;
@@ -363,7 +363,7 @@ public class PanelUsuarioVista extends JFrame {
 
         // Header con estado membresía
         JPanel norte = new JPanel(new BorderLayout()); norte.setOpaque(false);
-        norte.add(header("💳  Mis Pagos"), BorderLayout.WEST);
+        norte.add(header("Mis Pagos"), BorderLayout.WEST);
 
         // Badge estado membresía
         Color bColor = "Activa".equalsIgnoreCase(estMem) ? EstilosGym.COLOR_EXITO
@@ -460,7 +460,7 @@ public class PanelUsuarioVista extends JFrame {
 
         int idCliente = Sesion.getIdCliente();
         if (idCliente <= 0) {
-            root.add(header("📈  Mi Progreso Físico"), BorderLayout.NORTH);
+            root.add(header("Mi Progreso Físico"), BorderLayout.NORTH);
             JLabel err = new JLabel("No se pudo identificar tu cuenta. Contacta al administrador.", JLabel.CENTER);
             err.setFont(new Font("Segoe UI",Font.ITALIC,13)); err.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
             root.add(err, BorderLayout.CENTER); return root;
@@ -472,7 +472,7 @@ public class PanelUsuarioVista extends JFrame {
 
         // Header con botón registrar
         JPanel norte = new JPanel(new BorderLayout()); norte.setOpaque(false);
-        norte.add(header("📈  Mi Progreso Físico"), BorderLayout.WEST);
+        norte.add(header("Mi Progreso Físico"), BorderLayout.WEST);
         JButton btnReg = EstilosGym.crearBotonPrimario("+ Registrar medición");
         btnReg.setPreferredSize(new Dimension(180, 38));
         JPanel btnPan = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 18)); btnPan.setOpaque(false);
@@ -583,7 +583,7 @@ public class PanelUsuarioVista extends JFrame {
     /** Formulario para registrar una nueva medición de progreso */
     private void abrirFormProgreso(int idCliente, ProgresoFisico ultimo, ProgresoDAO pDao, Runnable recargar) {
         JDialog dlg = new JDialog((JFrame)SwingUtilities.getWindowAncestor(contenido),
-            "📈 Registrar Medición", true);
+            "Registrar Medición", true);
         dlg.setSize(480, 500); dlg.setLocationRelativeTo(contenido);
 
         JPanel p = new JPanel(new GridBagLayout());
@@ -688,7 +688,7 @@ public class PanelUsuarioVista extends JFrame {
 
     // ─────────────── CLIENTES ASIGNADOS (Entrenador) ───────────────
     private JPanel vistaClientesAsignados() {
-        JPanel root=panel(); root.add(header("👥  Clientes Asignados"),BorderLayout.NORTH);
+        JPanel root=panel(); root.add(header("Clientes Asignados"),BorderLayout.NORTH);
         String[] cols={"ID","Nombre","Membresía","Teléfono","Correo","Objetivo"};
         DefaultTableModel mod=new DefaultTableModel(cols,0){ @Override public boolean isCellEditable(int r,int c){return false;} };
         try {
@@ -701,7 +701,7 @@ public class PanelUsuarioVista extends JFrame {
 
     // ─────────────── PROGRESO CLIENTES (Entrenador) ───────────────
     private JPanel vistaProgresoClientes() {
-        JPanel root=panel(); root.add(header("📊  Progreso de Clientes"),BorderLayout.NORTH);
+        JPanel root=panel(); root.add(header("Progreso de Clientes"),BorderLayout.NORTH);
         String[] cols={"Fecha","Cliente","Peso","% Grasa","Masa Musc.","IMC","Observaciones"};
         DefaultTableModel mod=new DefaultTableModel(cols,0){ @Override public boolean isCellEditable(int r,int c){return false;} };
         try {

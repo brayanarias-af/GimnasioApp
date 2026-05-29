@@ -18,7 +18,7 @@ public class MaquinasVista extends TablaBase {
     }
 
     private void construir() {
-        add(crearHeader("🏋️  Máquinas del Gimnasio", false, "+ Nueva Máquina"), BorderLayout.NORTH);
+        add(crearHeader("Máquinas del Gimnasio", false, "+ Nueva Máquina"), BorderLayout.NORTH);
 
         String[] cols = {"ID","Nombre","Tipo","Marca","Modelo","Serial","Estado","Mantenimiento","Acciones"};
         crearModelo(cols, 8);
@@ -99,8 +99,9 @@ public class MaquinasVista extends TablaBase {
 
     private JTextField tf(){ return EstilosGym.crearCampoTexto(); }
     private JComboBox<String> cmb(String... opts){
-        JComboBox<String> c=new JComboBox<>(opts); c.setBackground(EstilosGym.COLOR_FONDO);
-        c.setForeground(EstilosGym.COLOR_TEXTO); c.setFont(EstilosGym.FUENTE_NORMAL); return c;
+        JComboBox<String> c=new JComboBox<>(opts);
+        EstilosGym.aplicarEstiloCombo(c);
+        return c;
     }
 
     class BtnRender extends JPanel implements TableCellRenderer {

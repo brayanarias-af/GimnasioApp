@@ -19,7 +19,7 @@ public class ClientesVista extends TablaBase {
     }
 
     private void construir() {
-        add(crearHeader("👥  Gestión de Clientes", true, "+ Nuevo Cliente"), BorderLayout.NORTH);
+        add(crearHeader("Gestión de Clientes", true, "+ Nuevo Cliente"), BorderLayout.NORTH);
 
         String[] cols = {"ID","Nombres","Apellidos","Cédula","Teléfono","EPS","Membresía","Objetivo","Acciones"};
         crearModelo(cols, 8);

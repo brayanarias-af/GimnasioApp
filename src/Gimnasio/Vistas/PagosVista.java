@@ -27,7 +27,7 @@ public class PagosVista extends TablaBase {
     }
 
     private void construir() {
-        add(crearHeader("💳  Pagos & Facturación", false, "+ Registrar Pago"), BorderLayout.NORTH);
+        add(crearHeader("Pagos & Facturación", false, "+ Registrar Pago"), BorderLayout.NORTH);
 
         String[] cols = {"ID","Fecha","Cliente","Membresía","Monto","Método","Inicio","Fin","Estado","Acciones"};
         crearModelo(cols, 9);
@@ -392,8 +392,7 @@ public class PagosVista extends TablaBase {
     }
 
     private void estiloCmb(JComboBox<?> c) {
-        c.setBackground(EstilosGym.COLOR_FONDO); c.setForeground(EstilosGym.COLOR_TEXTO);
-        c.setFont(EstilosGym.FUENTE_NORMAL);
+        EstilosGym.aplicarEstiloCombo(c);
     }
 
     private int obtenerDiasMem(int idMem) {

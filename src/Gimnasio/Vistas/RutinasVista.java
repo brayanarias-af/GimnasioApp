@@ -32,7 +32,7 @@ public class RutinasVista extends JPanel {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(EstilosGym.COLOR_FONDO);
         header.setBorder(new EmptyBorder(18,24,12,24));
-        JLabel titulo = new JLabel("📋  Gestión de Rutinas");
+        JLabel titulo = new JLabel("Gestión de Rutinas");
         titulo.setFont(EstilosGym.FUENTE_TITULO); titulo.setForeground(EstilosGym.COLOR_TEXTO);
         JPanel acc = new JPanel(new FlowLayout(FlowLayout.RIGHT,8,0)); acc.setOpaque(false);
         JButton btnN=EstilosGym.crearBotonPrimario("+ Nueva Rutina");
@@ -98,7 +98,7 @@ public class RutinasVista extends JPanel {
 
         JPanel top=new JPanel(new BorderLayout()); top.setBackground(EstilosGym.COLOR_FONDO);
         top.setBorder(new EmptyBorder(12,16,8,16));
-        JLabel lN=new JLabel("📅  Plan Semanal — "+rutinaSeleccionada.getNombreRutina());
+        JLabel lN=new JLabel("Plan Semanal — "+rutinaSeleccionada.getNombreRutina());
         lN.setFont(new Font("Segoe UI",Font.BOLD,15)); lN.setForeground(EstilosGym.COLOR_TEXTO);
         JLabel lS=new JLabel(rutinaSeleccionada.getNivel()+"  ·  "+rutinaSeleccionada.getDuracionSemanas()+" semanas  ·  "+rutinaSeleccionada.getObjetivo());
         lS.setFont(EstilosGym.FUENTE_PEQUEÑA); lS.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
@@ -190,6 +190,7 @@ public class RutinasVista extends JPanel {
         JComboBox<String> cmb=new JComboBox<>(); int[] ids=new int[ejercicios.size()];
         for(int i=0;i<ejercicios.size();i++){cmb.addItem("["+ejercicios.get(i)[2]+"] "+ejercicios.get(i)[1]);ids[i]=(int)ejercicios.get(i)[0];}
         cmb.setBackground(EstilosGym.COLOR_FONDO); cmb.setForeground(EstilosGym.COLOR_TEXTO); cmb.setFont(EstilosGym.FUENTE_NORMAL);
+        EstilosGym.aplicarEstiloCombo(cmb);
         JPanel dlgP=new JPanel(new GridBagLayout()); dlgP.setBackground(EstilosGym.COLOR_PANEL); dlgP.setBorder(new EmptyBorder(16,18,16,18));
         GridBagConstraints g=new GridBagConstraints(); g.insets=new Insets(6,6,6,6); g.fill=GridBagConstraints.HORIZONTAL;
         g.gridx=0;g.gridy=0;g.weightx=0.3; JLabel lbl=EstilosGym.crearEtiqueta("Ejercicio *"); lbl.setHorizontalAlignment(SwingConstants.RIGHT); dlgP.add(lbl,g);
@@ -215,6 +216,7 @@ public class RutinasVista extends JPanel {
         JTextField tfN=EstilosGym.crearCampoTexto(),tfS=EstilosGym.crearCampoTexto(),tfR=EstilosGym.crearCampoTexto(),tfD=EstilosGym.crearCampoTexto();
         JComboBox<String> cmbG=new JComboBox<>(new String[]{"Pecho","Espalda","Piernas","Hombros","Bíceps","Tríceps","Core","Cardio","Full Body"});
         cmbG.setBackground(EstilosGym.COLOR_FONDO); cmbG.setForeground(EstilosGym.COLOR_TEXTO);
+        EstilosGym.aplicarEstiloCombo(cmbG);
         Object[][] rows={{"Nombre *",tfN},{"Grupo",cmbG},{"Series",tfS},{"Repeticiones",tfR},{"Descanso (seg)",tfD}};
         for(int i=0;i<rows.length;i++){
             g.gridy=i;g.gridx=0;g.weightx=0.38; JLabel l=EstilosGym.crearEtiqueta(rows[i][0].toString()); l.setHorizontalAlignment(SwingConstants.RIGHT); p.add(l,g);
@@ -253,6 +255,7 @@ public class RutinasVista extends JPanel {
         JComboBox<String> cmbEnt=new JComboBox<>(); int[] idsE=new int[ents.size()];
         for(int i=0;i<ents.size();i++){cmbEnt.addItem(ents.get(i)[1].toString());idsE[i]=(int)ents.get(i)[0];}
         cmbEnt.setBackground(EstilosGym.COLOR_FONDO); cmbEnt.setForeground(EstilosGym.COLOR_TEXTO);
+        EstilosGym.aplicarEstiloCombo(cmbEnt);
         if(orig!=null){tfN.setText(orig.getNombreRutina());cmbObj.setSelectedItem(orig.getObjetivo());
             cmbNiv.setSelectedItem(orig.getNivel());tfD.setText(String.valueOf(orig.getDuracionSemanas()));
             taDesc.setText(orig.getDescripcion());
@@ -295,8 +298,9 @@ public class RutinasVista extends JPanel {
     }
 
     private JComboBox<String> cmb(String... opts){
-        JComboBox<String> c=new JComboBox<>(opts); c.setBackground(EstilosGym.COLOR_FONDO);
-        c.setForeground(EstilosGym.COLOR_TEXTO); c.setFont(EstilosGym.FUENTE_NORMAL); return c;
+        JComboBox<String> c=new JComboBox<>(opts);
+        EstilosGym.aplicarEstiloCombo(c);
+        return c;
     }
 
     class RutinaCellRenderer extends DefaultListCellRenderer {

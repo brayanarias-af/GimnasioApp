@@ -2,6 +2,7 @@ package Gimnasio.Vistas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class PanelAdminVista extends JFrame {
 
@@ -12,8 +13,9 @@ public class PanelAdminVista extends JFrame {
     private static final String[] SECCIONES = {
         "Inicio","Clientes","Pagos","Asistencias","Máquinas","Rutinas","Membresías","Permisos"
     };
+    // nombres de los archivos PNG en src/Gimnasio/Iconos/ (sin extensión)
     private static final String[] ICONOS = {
-        "🏠","👥","💳","📅","🏋️","📋","🎫","🔐"
+        "inicio","clientes","pago","asistencias","maquina","rutina","membresias","permisos-de-usuario"
     };
 
     public PanelAdminVista() {
@@ -24,6 +26,14 @@ public class PanelAdminVista extends JFrame {
         construir();
     }
 
+    private ImageIcon iconoTop(String nombre) {
+        URL url = getClass().getResource("/Gimnasio/Iconos/" + nombre + ".png");
+        if (url == null) return null;
+        ImageIcon raw = new ImageIcon(url);
+        Image scaled = raw.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
+    }
+
     private void construir() {
         JPanel raiz = new JPanel(new BorderLayout()); raiz.setBackground(EstilosGym.COLOR_FONDO);
 
@@ -31,8 +41,9 @@ public class PanelAdminVista extends JFrame {
         top.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(0,0,1,0,EstilosGym.COLOR_BORDE),
             BorderFactory.createEmptyBorder(7,226,7,18)));
-        lblRuta = new JLabel("🏠  Inicio");
+        lblRuta = new JLabel("  Inicio", iconoTop("inicio"), JLabel.LEFT);
         lblRuta.setFont(new Font("Segoe UI",Font.PLAIN,12)); lblRuta.setForeground(EstilosGym.COLOR_TEXTO_GRIS);
+        lblRuta.setIconTextGap(6);
         JLabel bdTag = new JLabel("● SQLite  ");
         bdTag.setFont(new Font("Segoe UI",Font.PLAIN,11)); bdTag.setForeground(EstilosGym.COLOR_EXITO);
         top.add(lblRuta,BorderLayout.WEST); top.add(bdTag,BorderLayout.EAST);
@@ -58,17 +69,22 @@ public class PanelAdminVista extends JFrame {
             case "Permisos"    -> new GestionPermisosVista();
             default            -> new DashboardVista();
         };
-        lblRuta.setText(switch (s) {
-            case "Clientes"    -> "👥  Clientes";
-            case "Pagos"       -> "💳  Pagos & Facturación";
-            case "Asistencias" -> "📅  Control de Asistencias";
-            case "Máquinas"    -> "🏋️  Máquinas";
-            case "Rutinas"     -> "📋  Rutinas";
-            case "Membresías"  -> "🎫  Membresías";
-            case "Permisos"    -> "🔐  Gestión de Permisos";
-            default            -> "🏠  Inicio";
-        });
-        contenido.add(v,BorderLayout.CENTER);
+
+        String[] rutaInfo = switch (s) {
+            case "Clientes"    -> new String[]{"clientes",    "Clientes"};
+            case "Pagos"       -> new String[]{"pago",        "Pagos & Facturación"};
+            case "Asistencias" -> new String[]{"asistencias", "Control de Asistencias"};
+            case "Máquinas"    -> new String[]{"maquina",     "Máquinas"};
+            case "Rutinas"     -> new String[]{"rutina",      "Rutinas"};
+            case "Membresías"  -> new String[]{"membresias",  "Membresías"};
+            case "Permisos"    -> new String[]{"permisos-de-usuario", "Gestión de Permisos"};
+            default            -> new String[]{"inicio",      "Inicio"};
+        };
+        ImageIcon ico = iconoTop(rutaInfo[0]);
+        lblRuta.setIcon(ico);
+        lblRuta.setText("  " + rutaInfo[1]);
+
+        contenido.add(v, BorderLayout.CENTER);
         contenido.revalidate(); contenido.repaint();
     }
 }

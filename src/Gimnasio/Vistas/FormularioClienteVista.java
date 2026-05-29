@@ -97,9 +97,9 @@ public class FormularioClienteVista extends JDialog {
 
     private JTextField f() { return EstilosGym.crearCampoTexto(); }
     private JComboBox<String> cmb(String... opts) {
-        JComboBox<String> c=new JComboBox<>(opts);
-        c.setBackground(EstilosGym.COLOR_FONDO); c.setForeground(EstilosGym.COLOR_TEXTO);
-        c.setFont(EstilosGym.FUENTE_NORMAL); return c;
+        JComboBox<String> c = new JComboBox<>(opts);
+        EstilosGym.aplicarEstiloCombo(c);
+        return c;
     }
 
     private void cargar() {

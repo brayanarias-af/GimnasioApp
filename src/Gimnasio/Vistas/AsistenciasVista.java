@@ -24,7 +24,7 @@ public class AsistenciasVista extends TablaBase {
     }
 
     private void construir() {
-        add(crearHeader("📅  Control de Asistencias", false, "📌 Registrar Entrada"), BorderLayout.NORTH);
+        add(crearHeader("Control de Asistencias", false, "Registrar Entrada"), BorderLayout.NORTH);
 
         String[] cols = {"ID","Fecha","Cliente","Entrada","Salida","Acciones"};
         crearModelo(cols, 5);
@@ -86,6 +86,7 @@ public class AsistenciasVista extends TablaBase {
         int[] ids = new int[clientes.size()];
         for (int i=0;i<clientes.size();i++) { cmbCli.addItem(clientes.get(i)[1].toString()); ids[i]=(int)clientes.get(i)[0]; }
         cmbCli.setBackground(EstilosGym.COLOR_FONDO); cmbCli.setForeground(EstilosGym.COLOR_TEXTO); cmbCli.setFont(EstilosGym.FUENTE_NORMAL);
+        EstilosGym.aplicarEstiloCombo(cmbCli);
 
         DatePickerField dpFecha = new DatePickerField(LocalDate.now().toString());
         JTextField tfHora  = EstilosGym.crearCampoTexto();

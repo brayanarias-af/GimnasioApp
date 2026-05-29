@@ -171,4 +171,58 @@ public class EstilosGym {
         lbl.setFont(FUENTE_NORMAL);
         return lbl;
     }
+
+    /**
+     * ComboBox con estilo oscuro completo:
+     * fondo COLOR_FONDO, texto COLOR_TEXTO, renderer personalizado
+     * para que tanto el ítem seleccionado como la lista desplegable
+     * sean legibles sobre fondo oscuro.
+     */
+    public static <T> javax.swing.JComboBox<T> crearComboBox(T[] opciones) {
+        javax.swing.JComboBox<T> cb = new javax.swing.JComboBox<>(opciones);
+        aplicarEstiloCombo(cb);
+        return cb;
+    }
+
+    /** Aplica el estilo oscuro a cualquier JComboBox ya creado. */
+    public static void aplicarEstiloCombo(javax.swing.JComboBox<?> cb) {
+        cb.setBackground(COLOR_FONDO);
+        cb.setForeground(Color.BLACK);
+        cb.setFont(FUENTE_NORMAL);
+        cb.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(COLOR_BORDE, 1, true),
+            javax.swing.BorderFactory.createEmptyBorder(2, 6, 2, 6)
+        ));
+
+        // Renderer para los ítems de la lista desplegable
+        cb.setRenderer(new javax.swing.DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(
+                    javax.swing.JList<?> list, Object value,
+                    int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                setFont(FUENTE_NORMAL);
+                if (isSelected) {
+                    setBackground(new Color(255, 87, 34, 180)); // naranja acento translúcido
+                    setForeground(Color.BLACK);
+                } else {
+                    setBackground(COLOR_PANEL_CLARO);
+                    setForeground(Color.BLACK);
+                }
+                setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 10, 6, 10));
+                setOpaque(true);
+                return this;
+            }
+        });
+
+        // Fondo del popup de la lista
+        javax.swing.plaf.basic.BasicComboPopup popup =
+            (javax.swing.plaf.basic.BasicComboPopup) cb.getAccessibleContext()
+                .getAccessibleChild(0);
+        if (popup != null) {
+            popup.getList().setBackground(COLOR_PANEL_CLARO);
+            popup.getList().setForeground(COLOR_TEXTO);
+            popup.setBorder(javax.swing.BorderFactory.createLineBorder(COLOR_BORDE));
+        }
+    }
 }

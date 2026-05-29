@@ -18,7 +18,7 @@ public class MembresiasVista extends TablaBase {
     }
 
     private void construir() {
-        add(crearHeader("🎫  Planes de Membresía", false, "+ Nuevo Plan"), BorderLayout.NORTH);
+        add(crearHeader("Planes de Membresía", false, "+ Nuevo Plan"), BorderLayout.NORTH);
 
         String[] cols = {"ID","Nombre","Precio ($)","Duración (días)","Descripción","Acciones"};
         crearModelo(cols, 5);
